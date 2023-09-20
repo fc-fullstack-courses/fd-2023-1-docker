@@ -1,0 +1,24 @@
+# coments
+
+# для сборки использовать команду docker build -f Dockerfile1 -t basic-server:0.1 .
+
+# создаем образ на основе образа 18 ноды + alpine Linux
+FROM node:18-alpine
+
+# создать в будущем котейнере папку server в корне
+RUN mkdir /server
+
+# сменить текущую папку для исполнения команд
+WORKDIR /server
+
+# скопировать файлы сервера из хоста в образ
+COPY ./ ./
+
+# гарантируем наличие node_modules
+RUN npm install
+
+# открыть доступ к порту 5000
+EXPOSE 5000
+
+# команда которая будет выполнятся при запуске контейнера
+CMD ["npm", "run", "start"]
